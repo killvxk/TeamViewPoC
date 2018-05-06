@@ -1,0 +1,109 @@
+﻿@model TeamViewPoC.Models.ViewModels.WorkItemDetailViewModel
+
+@{
+    ViewData["Title"] = "ItemDetail";
+}
+
+<h2>ItemDetail</h2>
+
+<div>
+    <h4>WorkItem</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.WorkItem.Title)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.WorkItem.Title)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.WorkItem.Description)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.WorkItem.Description)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.WorkItem.CreatedOn)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.WorkItem.CreatedOn)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.WorkItem.DueDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.WorkItem.DueDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.WorkItem.LastUpdated)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.WorkItem.LastUpdated)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.WorkItem.Active)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.WorkItem.Active)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.WorkItem.Complete)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.WorkItem.Complete)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.WorkItem.AssignedTo)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.WorkItem.AssignedTo)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.WorkItem.CreatedBy)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.WorkItem.CreatedBy)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.WorkItem.Status)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.WorkItem.Status)
+        </dd>
+    </dl>
+</div>
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Add Note</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add a note</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form asp-action="Add" asp-controller="Note">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Note.NoteContent" class="control-label"></label>
+                        <textarea asp-for="Note.NoteContent" class="form-control" rows="10" cols="75"></textarea>
+                        <span asp-validation-for="Note.NoteContent" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Create" class="btn btn-default" />
+                    </div>
+                    <input id="itemId" name="itemId" type="hidden" value="@Model.WorkItem.WorkItemId">
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
