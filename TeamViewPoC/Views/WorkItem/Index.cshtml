@@ -1,8 +1,37 @@
-﻿@model TeamViewPoC.Models.WorkItem
+﻿@model IEnumerable<WorkItem>
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h2>Index</h2>
+<h1>My Work Items</h1>
 
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Due Date</th>
+            <th>Last Updated</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model)
+{
+        <tr>
+            <td>
+                <a asp-controller="WorkItem" asp-action="itemdetail/@item.WorkItemId" >@item.Title</a>
+            </td>
+            <td>
+                @item.Description
+            </td>
+            <td>
+                @item.DueDate
+            </td>
+            <td>
+                @item.LastUpdated
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -19,9 +19,11 @@ namespace TeamViewPoC.Controllers
             _workItemDataService = workItemDataService;
         }
         //GET Index
-        public IActionResult Index()
+        //This loads the my work items as a summary
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var data = await _workItemDataService.GetMyWorkItemsAsync("due");
+            return View(data);
         }
 
         //GET Create

@@ -25,24 +25,21 @@ namespace TeamViewPoC.Controllers
 
         //POST Add
         [HttpPost]
-        public async Task<IActionResult> Add(WorkItemDetailViewModel model)
+        public async Task<IActionResult> Add(WorkItemDetailViewModel model, int itemId)
         {
+            WorkItem workItem = new WorkItem();
+            workItem = await _workItemDataService.GetWorkItemByIdAsync(itemId);
+
             Note note = new Note
             {
                 NoteContent = model.Note.NoteContent,
                 CreatedOn = DateTime.Now,
                 CreatedBy = Constants.HardCodedSignedInUser,
-                WorkItem = model.WorkItem
+                WorkItem = workItem
             };
 
-            WorkItem workItem = model.WorkItem;
-
-            workItem.LastUpdated = DateTime.Now;
-
-            
-
             await _noteDataService.AddNoteAsync(note);
-            _workItemDataService.UpdateWorkItemAsync(workItem);
+            
             return RedirectToAction("List", "WorkItem");
         }
     }

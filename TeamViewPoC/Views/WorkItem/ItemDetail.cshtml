@@ -4,74 +4,31 @@
     ViewData["Title"] = "ItemDetail";
 }
 
-<h2>ItemDetail</h2>
-
+<h1>ItemDetail</h1>
 <div>
-    <h4>WorkItem</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.WorkItem.Title)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.WorkItem.Title)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.WorkItem.Description)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.WorkItem.Description)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.WorkItem.CreatedOn)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.WorkItem.CreatedOn)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.WorkItem.DueDate)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.WorkItem.DueDate)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.WorkItem.LastUpdated)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.WorkItem.LastUpdated)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.WorkItem.Active)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.WorkItem.Active)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.WorkItem.Complete)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.WorkItem.Complete)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.WorkItem.AssignedTo)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.WorkItem.AssignedTo)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.WorkItem.CreatedBy)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.WorkItem.CreatedBy)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.WorkItem.Status)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.WorkItem.Status)
-        </dd>
-    </dl>
+    <h2>@Model.WorkItem.Title</h2>
+    <p>@Model.WorkItem.Description</p>
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Note</th>
+                <th>Created By</th>
+                <th>Created On</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var note in Model.WorkItem.Notes)
+            {
+                <tr>
+                    <td>@note.NoteContent</td>
+                    <td>@note.CreatedBy</td>
+                    <td>@note.CreatedOn</td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>
+
 
 <!-- Button trigger modal -->
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Add Note</button>

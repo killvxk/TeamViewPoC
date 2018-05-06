@@ -33,15 +33,15 @@ namespace TeamViewPoC.Services
         {
             if (sort == "due")
             {
-                return await _context.WorkItems.Where(x => x.AssignedTo == Constants.HardCodedSignedInUser).OrderBy(x => x.DueDate).ToArrayAsync();
+                return await _context.WorkItems.Where(x => x.AssignedTo == Constants.HardCodedSignedInUser).OrderBy(x => x.DueDate).Include(x => x.Notes).ToArrayAsync();
             }
 
-            return await _context.WorkItems.Where(x => x.AssignedTo == Constants.HardCodedSignedInUser).ToArrayAsync();
+            return await _context.WorkItems.Where(x => x.AssignedTo == Constants.HardCodedSignedInUser).Include(x => x.Notes).ToArrayAsync();
         }
 
         public async Task<WorkItem> GetWorkItemByIdAsync(int id)
         {
-            return await _context.WorkItems.FindAsync(id);
+            return await _context.WorkItems.Include(x => x.Notes).FirstOrDefaultAsync(x => x.WorkItemId == id);
         }
 
         public async void UpdateWorkItemAsync(WorkItem item)
