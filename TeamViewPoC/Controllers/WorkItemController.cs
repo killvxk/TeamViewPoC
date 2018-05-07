@@ -50,6 +50,13 @@ namespace TeamViewPoC.Controllers
             return View(model);
         }
 
+        //GET MarkComplete
+        public async Task<IActionResult> MarkComplete(int id)
+        {
+            await _workItemDataService.MarkComplete(id);
+            return RedirectToAction("Index");
+        }
+        
         //POST Create
         [HttpPost]
         public async Task<IActionResult> Create(WorkItem model)
@@ -67,5 +74,7 @@ namespace TeamViewPoC.Controllers
 
             return RedirectToAction("Index");
         }
+
+
     }
 }

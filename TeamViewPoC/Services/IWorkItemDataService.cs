@@ -13,5 +13,6 @@ namespace TeamViewPoC.Services
         void UpdateWorkItemAsync(WorkItem item);
         Task<IEnumerable<WorkItem>> GetActiveWorkItemsAsync();
         Task<IEnumerable<WorkItem>> GetMyWorkItemsAsync(string sort);
+        Task MarkComplete(int id);
     }
 }
