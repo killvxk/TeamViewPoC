@@ -40,7 +40,7 @@ namespace TeamViewPoC.Controllers
 
             await _noteDataService.AddNoteAsync(note);
             
-            return RedirectToAction("List", "WorkItem");
+            return RedirectToAction("ItemDetail", "Workitem", new { id = itemId });
         }
     }
 }
