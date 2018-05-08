@@ -20,7 +20,7 @@
 {
         <tr>
             <td>
-                <a asp-controller="WorkItem" asp-action="itemdetail/@item.WorkItemId" >@item.Title</a>
+                <a asp-controller="WorkItem" asp-action="itemdetail" asp-route-id="@item.WorkItemId" >@item.Title</a>
             </td>
             <td>
                 @item.Description
@@ -29,7 +29,7 @@
                 @item.DueDate.ToShortDateString()
             </td>
             <td>
-                @item.LastUpdated
+                @item.LastUpdated.ToLocalTime()
             </td>
         </tr>
 }

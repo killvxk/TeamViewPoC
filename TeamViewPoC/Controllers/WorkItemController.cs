@@ -57,6 +57,13 @@ namespace TeamViewPoC.Controllers
             return RedirectToAction("Index");
         }
         
+        //GET RecentlyCompleted
+        public async Task<IActionResult> RecentlyCompleted()
+        {
+            var data = await _workItemDataService.GetMyRecentlyCompletedAsync();
+            return View(data);
+        }
+
         //POST Create
         [HttpPost]
         public async Task<IActionResult> Create(WorkItem model)

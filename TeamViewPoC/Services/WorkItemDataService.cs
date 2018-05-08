@@ -29,6 +29,11 @@ namespace TeamViewPoC.Services
             return await _context.WorkItems.Where(x=>x.Complete == false).ToArrayAsync();
         }
 
+        public async Task<IEnumerable<WorkItem>> GetMyRecentlyCompletedAsync()
+        {
+            return await _context.WorkItems.Where(x => x.Complete == true && x.LastUpdated.AddDays(30) >= DateTime.Now).ToArrayAsync();
+        }
+
         public async Task<IEnumerable<WorkItem>> GetMyWorkItemsAsync(string sort)
         {
             if (sort == "due")
@@ -48,6 +53,7 @@ namespace TeamViewPoC.Services
         {
             var update =  await _context.WorkItems.FirstOrDefaultAsync(x => x.WorkItemId == id);
             update.Complete = true;
+            update.LastUpdated = DateTime.Now;
             await _context.SaveChangesAsync();
         }
 

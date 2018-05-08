@@ -22,7 +22,7 @@
                 <tr>
                     <td>@note.NoteContent</td>
                     <td>@note.CreatedBy</td>
-                    <td>@note.CreatedOn</td>
+                    <td>@note.CreatedOn.ToLocalTime()</td>
                 </tr>
             }
         </tbody>

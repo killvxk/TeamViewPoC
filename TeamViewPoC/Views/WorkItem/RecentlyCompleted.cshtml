@@ -1,0 +1,22 @@
+﻿@model IEnumerable<WorkItem>
+
+<h1>Recently Completed</h1>
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Completed</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Title</td>
+                <td>@item.Description</td>
+                <td>@item.LastUpdated.ToLocalTime()</td>
+            </tr>
+        }
+    </tbody>
+</table>
