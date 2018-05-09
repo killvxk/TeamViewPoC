@@ -64,6 +64,12 @@ namespace TeamViewPoC.Controllers
             return View(data);
         }
 
+        //GET Edit Workitem
+        public async Task<IActionResult>Edit(int id)
+        {
+            var data = await _workItemDataService.GetWorkItemByIdAsync(id);
+            return View(data);
+        }
         //POST Create
         [HttpPost]
         public async Task<IActionResult> Create(WorkItem model)
@@ -82,6 +88,12 @@ namespace TeamViewPoC.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpPost]
+        public async Task<IActionResult>Edit(WorkItem model)
+        {
+            await _workItemDataService.Update(model);
+            return RedirectToAction("Index");
+        }
 
     }
 }

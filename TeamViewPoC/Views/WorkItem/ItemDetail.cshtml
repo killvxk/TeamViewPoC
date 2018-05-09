@@ -4,9 +4,9 @@
     ViewData["Title"] = "ItemDetail";
 }
 
-<h1>ItemDetail</h1>
+
 <div>
-    <h2>@Model.WorkItem.Title</h2>
+    <h1>@Model.WorkItem.Title</h1>
     <p>@Model.WorkItem.Description</p>
     <table class="table table-bordered table-hover">
         <thead>
@@ -22,7 +22,7 @@
                 <tr>
                     <td>@note.NoteContent</td>
                     <td>@note.CreatedBy</td>
-                    <td>@note.CreatedOn.ToString("g")</td>
+                    <td>@TimeZoneInfo.ConvertTime(note.CreatedOn, (TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time"))).ToString("g")</td>
                 </tr>
             }
         </tbody>
@@ -33,7 +33,8 @@
 
     <!-- Button trigger modal -->
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Add Note</button>
-    <a class="btn btn-primary">Edit Item</a>
+    <a asp-action="Edit" asp-controller="workitem" asp-route-id="@Model.WorkItem.WorkItemId" class="btn btn-primary">Edit Item</a>
+
 </div>
 
 

@@ -63,5 +63,12 @@ namespace TeamViewPoC.Services
             await _context.SaveChangesAsync();
         }
 
+        public async Task Update(WorkItem item)
+        {
+            _context.WorkItems.Update(item);
+            item.LastUpdated = DateTime.Now;
+
+            await _context.SaveChangesAsync();
+        }
     }
 }

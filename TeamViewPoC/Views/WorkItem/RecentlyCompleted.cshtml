@@ -15,7 +15,7 @@
             <tr>
                 <td>@item.Title</td>
                 <td>@item.Description</td>
-                <td>@item.LastUpdated.ToLocalTime()</td>
+                <td>@TimeZoneInfo.ConvertTime(item.LastUpdated, (TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time"))).ToString("g")</td>
             </tr>
         }
     </tbody>

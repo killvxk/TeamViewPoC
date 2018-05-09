@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>My Work Items</h1>
+<h1 class="">My Open Work Items</h1>
 
 <table class="table table-responsive table-bordered table-hover">
     <thead>
@@ -30,11 +30,11 @@
                 @item.DueDate.ToString("d")
                 @if (item.DueDate < DateTime.Now)
                 {
-                    <code class="code"> [OVERDUE]</code>
+                    <code class="code">[OVERDUE]</code>
                 }
             </td>
             <td>
-                @item.LastUpdated.ToString("g")
+                @TimeZoneInfo.ConvertTime(item.LastUpdated, (TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time"))).ToString("g")
             </td>
         </tr>
 }

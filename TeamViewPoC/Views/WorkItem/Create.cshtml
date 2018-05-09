@@ -30,7 +30,9 @@
             </div>
             <div class="form-group">
                 <label asp-for="AssignedTo" class="control-label"></label>
-                <input asp-for="AssignedTo" class="form-control" />
+                <select asp-for="AssignedTo"  class="form-control">
+                    <option value="Bill Marco">Bill Marco</option>
+                </select>
                 <span asp-validation-for="AssignedTo" class="text-danger"></span>
             </div>
             <div class="form-group">
