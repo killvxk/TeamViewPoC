@@ -4,9 +4,13 @@
     ViewData["Title"] = "ItemDetail";
 }
 
+<div class="row">
+    <a asp-action="Index">Back to open items</a>
+</div>
+<div class="row">
 
-<div>
     <h1>@Model.WorkItem.Title</h1>
+    <p>Due: @Model.WorkItem.DueDate.ToShortDateString()</p>
     <p>@Model.WorkItem.Description</p>
     <table class="table table-bordered table-hover">
         <thead>
@@ -28,7 +32,8 @@
         </tbody>
     </table>
 </div>
-<div>
+
+<div class="row">
     <a asp-action="markcomplete/@Model.WorkItem.WorkItemId" asp-controller="WorkItem" class="btn btn-primary pull-right">Mark Complete</a>
 
     <!-- Button trigger modal -->
@@ -36,6 +41,7 @@
     <a asp-action="Edit" asp-controller="workitem" asp-route-id="@Model.WorkItem.WorkItemId" class="btn btn-primary">Edit Item</a>
 
 </div>
+<hr />
 
 
 <!-- Modal -->
