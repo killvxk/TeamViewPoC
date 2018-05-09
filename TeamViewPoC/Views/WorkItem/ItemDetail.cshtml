@@ -11,9 +11,9 @@
     <table class="table table-bordered table-hover">
         <thead>
             <tr>
-                <th>Note</th>
-                <th>Created By</th>
-                <th>Created On</th>
+                <th class="col-md-8">Note</th>
+                <th class="col-md-2">Created By</th>
+                <th class="col-md-2">Created On</th>
             </tr>
         </thead>
         <tbody>
@@ -22,17 +22,20 @@
                 <tr>
                     <td>@note.NoteContent</td>
                     <td>@note.CreatedBy</td>
-                    <td>@note.CreatedOn.ToLocalTime()</td>
+                    <td>@note.CreatedOn.ToString("g")</td>
                 </tr>
             }
         </tbody>
     </table>
 </div>
+<div>
+    <a asp-action="markcomplete/@Model.WorkItem.WorkItemId" asp-controller="WorkItem" class="btn btn-primary pull-right">Mark Complete</a>
 
-<a asp-action="markcomplete/@Model.WorkItem.WorkItemId" asp-controller="WorkItem" class="btn btn-primary">Mark Complete</a>
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Add Note</button>
+    <a class="btn btn-primary">Edit Item</a>
+</div>
 
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Add Note</button>
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
