@@ -1,42 +1,103 @@
-﻿@model IEnumerable<WorkItem>
+﻿@model TeamViewPoC.Models.ViewModels.MyWorkItemsViewModel
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1 class="">My Open Work Items</h1>
+<div class="row">
+    <h1 class="">My Open Work Items</h1>
+</div>
 
-<table class="table table-responsive table-bordered table-hover">
-    <thead>
-        <tr>
-            <th class="col-md-2">Title</th>
-            <th class="col-md-6">Description</th>
-            <th class="col-md-2">Due Date</th>
-            <th class="col-md-2">Last Updated</th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model)
-{
 
-        <tr>
-            <td>
-                <a asp-controller="WorkItem" asp-action="itemdetail" asp-route-id="@item.WorkItemId" >@item.Title</a>
-            </td>
-            <td>
-                @item.Description
-            </td>
-            <td>
-                @item.DueDate.ToString("d")
-                @if (item.DueDate < DateTime.Now)
-                {
-                    <code class="code">[OVERDUE]</code>
-                }
-            </td>
-            <td>
-                @TimeZoneInfo.ConvertTime(item.LastUpdated, (TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time"))).ToString("g")
-            </td>
-        </tr>
+<div class="row">
+    <a class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">[+] Add Item</a>
+</div>
+<hr />
+<div class="row">
+    <table class="table table-responsive table-bordered table-hover">
+        <thead>
+            <tr>
+                <th class="col-md-2">Title</th>
+                <th class="col-md-6">Description</th>
+                <th class="col-md-2">Due Date</th>
+                <th class="col-md-2">Last Updated</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.WorkItems)
+            {
+
+                <tr>
+                    <td>
+                        <a asp-controller="WorkItem" asp-action="itemdetail" asp-route-id="@item.WorkItemId">@item.Title</a>
+                    </td>
+                    <td>
+                        @item.Description
+                    </td>
+                    <td>
+                        @item.DueDate.ToString("d")
+                        @if (item.DueDate < DateTime.Now)
+                        {
+                            <code class="code">[OVERDUE]</code>
+                        }
+                    </td>
+                    <td>
+                        @TimeZoneInfo.ConvertTime(item.LastUpdated, (TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time"))).ToString("g")
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="exampleModalLabel">Add a note</h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form asp-action="CreateFromVM">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="WorkItem.Title" class="control-label"></label>
+                        <input asp-for="WorkItem.Title" class="form-control" />
+                        <span asp-validation-for="WorkItem.Title" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="WorkItem.Description" class="control-label"></label>
+                        <textarea asp-for="WorkItem.Description" class="form-control" rows="10" cols="75"></textarea>
+                        <span asp-validation-for="WorkItem.Description" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="WorkItem.DueDate" class="control-label"></label>
+                        <input asp-for="WorkItem.DueDate" type="date" class="form-control" />
+                        <span asp-validation-for="WorkItem.DueDate" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="WorkItem.AssignedTo" class="control-label"></label>
+                        <select asp-for="WorkItem.AssignedTo" class="form-control">
+                            <option value="Bill Marco">Bill Marco</option>
+                        </select>
+                        <span asp-validation-for="WorkItem.AssignedTo" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Create" class="btn btn-default" />
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
-    </tbody>
-</table>

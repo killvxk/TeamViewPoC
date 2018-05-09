@@ -18,11 +18,18 @@ namespace TeamViewPoC.Controllers
         {
             _workItemDataService = workItemDataService;
         }
+        
         //GET Index
         //This loads the my work items as a summary
         public async Task<IActionResult> Index()
         {
-            var data = await _workItemDataService.GetMyWorkItemsAsync("due");
+            var data = new MyWorkItemsViewModel
+                {
+                WorkItems = await _workItemDataService.GetMyWorkItemsAsync("due"),
+                WorkItem = new WorkItem()
+                };
+            
+
             return View(data);
         }
 
@@ -70,6 +77,7 @@ namespace TeamViewPoC.Controllers
             var data = await _workItemDataService.GetWorkItemByIdAsync(id);
             return View(data);
         }
+        
         //POST Create
         [HttpPost]
         public async Task<IActionResult> Create(WorkItem model)
@@ -88,6 +96,24 @@ namespace TeamViewPoC.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpPost]
+        public async Task<IActionResult> CreateFromVM(MyWorkItemsViewModel model)
+        {
+            model.WorkItem.CreatedOn = DateTime.Now;
+            model.WorkItem.LastUpdated = DateTime.Now;
+            //make the due time equal to CoB on the date (1700 hrs)
+            model.WorkItem.DueDate = model.WorkItem.DueDate.AddHours(17);
+            model.WorkItem.Complete = false;
+            model.WorkItem.Active = true;
+            model.WorkItem.CreatedBy = Constants.HardCodedSignedInUser;
+            model.WorkItem.Status = Constants.OnTrack;
+            await _workItemDataService.AddWorkItemAsync(model.WorkItem);
+            ModelState.Clear();
+
+            return RedirectToAction("Index");
+        }
+
+        //POST Edit
         [HttpPost]
         public async Task<IActionResult>Edit(WorkItem model)
         {
