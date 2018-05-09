@@ -13,7 +13,7 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td>@item.Title</td>
+                <td>@item.Title <a asp-action="itemdetail" asp-route-id="@item.WorkItemId">view</a></td>
                 <td>@item.Description</td>
                 <td>@TimeZoneInfo.ConvertTime(item.LastUpdated, (TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time"))).ToString("g")</td>
             </tr>
