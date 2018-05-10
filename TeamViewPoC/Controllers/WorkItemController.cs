@@ -78,6 +78,17 @@ namespace TeamViewPoC.Controllers
             return View(data);
         }
         
+        //GET Today
+        public async Task<IActionResult> Today()
+        {
+            var data = new TodayViewModel
+            {
+                WorkItemsSoon = await _workItemDataService.GetMyDueSoon(2),
+                WorkItemsToday = await _workItemDataService.GetMyDueToday()
+            };
+            return View(data);
+        }
+
         //POST Create
         [HttpPost]
         public async Task<IActionResult> Create(WorkItem model)

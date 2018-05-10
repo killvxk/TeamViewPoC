@@ -1,0 +1,84 @@
+﻿@model TeamViewPoC.Models.ViewModels.TodayViewModel
+<div class="row">
+    <h1>@DateTime.Now.ToString("D")</h1>
+</div>
+
+
+<div class="row">
+    <h2>Due Today</h2>
+</div>
+<div class="row">
+    <p>You have <strong>@Model.WorkItemsToday.Count().ToString()</strong> item(s) due or overdue today.</p>
+</div>
+<div class="row">
+    <table class="table table-responsive table-bordered table-hover">
+        <thead>
+            <tr>
+                <th class="col-md-2">Title</th>
+                <th class="col-md-2">Due Date</th>
+                <th class="col-md-2">Last Updated</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.WorkItemsToday)
+            {
+
+                <tr>
+                    <td>
+                        <a asp-controller="WorkItem" asp-action="itemdetail" asp-route-id="@item.WorkItemId">@item.Title</a>
+                    </td>
+                    <td>
+                        @item.DueDate.ToString("d")
+                        @if (item.DueDate < DateTime.Now)
+                        {
+                            <code class="code">[OVERDUE]</code>
+                        }
+                    </td>
+                    <td>
+                        @TimeZoneInfo.ConvertTime(item.LastUpdated, (TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time"))).ToString("g")
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+<div class="row">
+    <h2>Due Soon</h2>
+</div>
+<div class="row">
+    <p>You have <strong>@Model.WorkItemsSoon.Count().ToString()</strong> item(s) due in the next 48 hrs.</p> </p>
+</div>
+<div class="row">
+    <table class="table table-responsive table-bordered table-hover">
+        <thead>
+            <tr>
+                <th class="col-md-2">Title</th>
+                <th class="col-md-2">Due Date</th>
+                <th class="col-md-2">Last Updated</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.WorkItemsSoon)
+            {
+
+                <tr>
+                    <td>
+                        <a asp-controller="WorkItem" asp-action="itemdetail" asp-route-id="@item.WorkItemId">@item.Title</a>
+                    </td>
+                    <td>
+                        @item.DueDate.ToString("d")
+                        @if (item.DueDate < DateTime.Now)
+                        {
+                            <code class="code">[OVERDUE]</code>
+                        }
+                    </td>
+                    <td>
+                        @TimeZoneInfo.ConvertTime(item.LastUpdated, (TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time"))).ToString("g")
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>

@@ -26,11 +26,10 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand">TeamViewPoC</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">TeamViewPoC</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                     <li><a asp-area="" asp-controller="WorkItem" asp-action="Create">Create WI</a></li>
                     <li><a asp-area="" asp-controller="WorkItem" asp-action="Index">My Work Items</a></li>
                     <li><a asp-area="" asp-controller="WorkItem" asp-action="RecentlyCompleted">Recently Completed</a></li>

@@ -70,5 +70,16 @@ namespace TeamViewPoC.Services
 
             await _context.SaveChangesAsync();
         }
+
+        public async Task<IEnumerable<WorkItem>> GetMyDueSoon(int days)
+        {
+            return await _context.WorkItems.Where(x => x.Complete == false && x.DueDate < DateTime.Now.AddDays(days) 
+            && !(x.DueDate.Date == DateTime.Now.Date || x.DueDate < DateTime.Now.Date && x.Complete == false)).ToArrayAsync();
+        }
+
+        public async Task<IEnumerable<WorkItem>> GetMyDueToday()
+        {
+            return await _context.WorkItems.Where(x => x.DueDate.Date == DateTime.Now.Date || x.DueDate < DateTime.Now.Date && x.Complete == false).ToArrayAsync();
+        }
     }
 }

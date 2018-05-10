@@ -14,6 +14,8 @@ namespace TeamViewPoC.Services
         Task<IEnumerable<WorkItem>> GetActiveWorkItemsAsync();
         Task<IEnumerable<WorkItem>> GetMyWorkItemsAsync(string sort);
         Task<IEnumerable<WorkItem>> GetMyRecentlyCompletedAsync();
+        Task<IEnumerable<WorkItem>> GetMyDueSoon(int days);
+        Task<IEnumerable<WorkItem>> GetMyDueToday();
         Task MarkComplete(int id);
         Task Update(WorkItem item);
     }

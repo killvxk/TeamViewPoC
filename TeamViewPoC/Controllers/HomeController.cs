@@ -12,7 +12,8 @@ namespace TeamViewPoC.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            //send to the today page
+            return RedirectToAction("Today", "Workitem");
         }
 
 
