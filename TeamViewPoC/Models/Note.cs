@@ -11,6 +11,7 @@ namespace TeamViewPoC.Models
         public string NoteContent { get; set; }
         public DateTime CreatedOn { get; set; }
         public WorkItem WorkItem { get; set; }
+        public Project Project { get; set; }
         public string CreatedBy { get; set; }
 
 

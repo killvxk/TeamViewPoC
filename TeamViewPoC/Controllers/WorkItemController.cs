@@ -12,11 +12,12 @@ namespace TeamViewPoC.Controllers
     public class WorkItemController : Controller
     {
         private readonly IWorkItemDataService _workItemDataService;
-        
+        private readonly IProjectDataService _projectDataService;
         //DI the workitem data service
-        public WorkItemController(IWorkItemDataService workItemDataService)
+        public WorkItemController(IWorkItemDataService workItemDataService, IProjectDataService projectDataService)
         {
             _workItemDataService = workItemDataService;
+            _projectDataService = projectDataService;
         }
         
         //GET Index
@@ -91,8 +92,10 @@ namespace TeamViewPoC.Controllers
 
         //POST Create
         [HttpPost]
-        public async Task<IActionResult> Create(WorkItem model)
+        public async Task<IActionResult> Create(WorkItem model, int projectid)
         {
+            
+            model.Project = await _projectDataService.GetProjectById(projectid);
             model.CreatedOn = DateTime.Now;
             model.LastUpdated = DateTime.Now;
             //make the due time equal to CoB on the date (1700 hrs)

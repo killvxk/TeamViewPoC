@@ -13,10 +13,12 @@ namespace TeamViewPoC.Controllers
     {
         private readonly INoteDataService _noteDataService;
         private readonly IWorkItemDataService _workItemDataService;
-        public NoteController(INoteDataService noteDataService, IWorkItemDataService workItemDataService)
+        private readonly IProjectDataService _projectDataService;
+        public NoteController(INoteDataService noteDataService, IWorkItemDataService workItemDataService, IProjectDataService projectDataService)
         {
             _noteDataService = noteDataService;
             _workItemDataService = workItemDataService;
+            _projectDataService = projectDataService;
         }
         public IActionResult Index()
         {
@@ -41,6 +43,23 @@ namespace TeamViewPoC.Controllers
             await _noteDataService.AddNoteAsync(note);
             
             return RedirectToAction("ItemDetail", "Workitem", new { id = itemId });
+        }
+
+        //POST ProjectAdd
+        [HttpPost]
+        public async Task<IActionResult>ProjectNote(ProjectDetailViewModel model, int projectid)
+        {
+            var project = await _projectDataService.GetProjectById(projectid);
+
+            Note note = new Note
+            {
+                NoteContent = model.Note.NoteContent,
+                CreatedOn = DateTime.Now,
+                CreatedBy = Constants.HardCodedSignedInUser,
+                Project = project
+            };
+            await _noteDataService.AddNoteAsync(note);
+            return RedirectToAction("Details", "Projects", new { id = project.ProjectId });
         }
     }
 }

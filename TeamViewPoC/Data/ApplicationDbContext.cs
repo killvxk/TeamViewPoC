@@ -23,6 +23,7 @@ namespace TeamViewPoC.Data
             // Add your customizations after calling base.OnModelCreating(builder);
         }
 
+        public DbSet<Project> Projects { get; set; }
         public DbSet<WorkItem> WorkItems { get; set; }
         public DbSet<Note> Notes { get; set; }
     }

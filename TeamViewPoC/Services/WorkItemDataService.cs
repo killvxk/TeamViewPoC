@@ -46,7 +46,7 @@ namespace TeamViewPoC.Services
 
         public async Task<WorkItem> GetWorkItemByIdAsync(int id)
         {
-            return await _context.WorkItems.Include(x => x.Notes).FirstOrDefaultAsync(x => x.WorkItemId == id);
+            return await _context.WorkItems.Include(x => x.Notes).Include(x=>x.Project).FirstOrDefaultAsync(x => x.WorkItemId == id);
         }
 
         public async Task MarkComplete(int id)
@@ -79,7 +79,7 @@ namespace TeamViewPoC.Services
 
         public async Task<IEnumerable<WorkItem>> GetMyDueToday()
         {
-            return await _context.WorkItems.Where(x => x.DueDate.Date == DateTime.Now.Date || x.DueDate < DateTime.Now.Date && x.Complete == false).ToArrayAsync();
+            return await _context.WorkItems.Where(x => x.DueDate.Date == DateTime.Now.Date && x.Complete == false).ToArrayAsync();
         }
     }
 }

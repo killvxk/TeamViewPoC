@@ -9,7 +9,8 @@
 </div>
 <div class="row">
 
-    <h1>@Model.WorkItem.Title</h1>
+    <h1>@Model.WorkItem.Title<small> @{if (Model.WorkItem.Project != null){@Model.WorkItem.Project.Title.ToString()} }</small></h1>
+
     <p>Due: @Model.WorkItem.DueDate.ToShortDateString()</p>
 
     @if (Model.WorkItem.Complete == true)

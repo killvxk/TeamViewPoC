@@ -1,0 +1,161 @@
+﻿@model TeamViewPoC.Models.ViewModels.ProjectDetailViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>@Model.Project.Title</h2>
+<ul>
+    <li>@Model.Project.CreatedOn</li>
+    <li>@Model.Project.CreatedBy</li>
+    <l1>@Model.Project.Description</l1>
+</ul>
+<div class="row">
+    <h2>Notes</h2>
+</div>
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Project.ProjectId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Add Note</button>
+<div class="row">
+    <h2>Work Items</h2>
+</div>
+
+<div class="row">
+    <table class="table table-responsive table-bordered table-hover">
+        <thead>
+            <tr>
+                <th class="col-md-2">Title</th>
+                <th class="col-md-1">Status</th>
+                <th class="col-md-6">Description</th>
+                <th class="col-md-2">Due Date</th>
+                <th class="col-md-2">Last Updated</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Project.WorkItems)
+            {
+
+                <tr>
+                    <td>
+                        <a asp-controller="WorkItem" asp-action="itemdetail" asp-route-id="@item.WorkItemId">@item.Title</a>
+                    </td>
+                    <td>
+                        @if (item.Complete == true)
+                        {
+                            <span>Complete</span>
+                        }
+                        else
+                        {
+                            <span>Open</span>
+                        }
+                    </td>
+                    <td>
+                        @item.Description
+                    </td>
+                    <td>
+                        @item.DueDate.ToString("d")
+                        @if (item.DueDate < DateTime.Now && item.Complete == false)
+                        {
+                            <code class="code">[OVERDUE]</code>
+                        }
+                    </td>
+                    <td>
+                        @TimeZoneInfo.ConvertTime(item.LastUpdated, (TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time"))).ToString("g")
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div class="row">
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createWorkItem">Add Work Item</button>
+
+</div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title" id="exampleModalLabel">Add a note</h2>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form asp-action="ProjectNote" asp-controller="Note">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group">
+                            <label asp-for="Note.NoteContent" class="control-label"></label>
+                            <textarea asp-for="Note.NoteContent" class="form-control" rows="10" cols="75"></textarea>
+                            <span asp-validation-for="Note.NoteContent" class="text-danger"></span>
+                        </div>
+                        <input id="projectid" name="projectid" type="hidden" value="@Model.Project.ProjectId">
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <input type="submit" value="Create" class="btn btn-primary" />
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Workitem Modal -->
+    <div class="modal fade" id="createWorkItem" tabindex="-1" role="dialog" aria-labelledby="createWorkItem" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title" id="createWorkItem">Add a Work Item</h2>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <form asp-controller="Workitem" asp-action="Create">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <div class="form-group">
+                                    <label asp-for="WorkItem.Title" class="control-label"></label>
+                                    <input asp-for="WorkItem.Title" name="title" class="form-control" />
+                                    <span asp-validation-for="WorkItem.Title" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="WorkItem.Description" class="control-label"></label>
+                                    <textarea asp-for="WorkItem.Description" name="description" class="form-control" rows="10" cols="75"></textarea>
+                                    <span asp-validation-for="WorkItem.Description" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label asp-for="WorkItem.DueDate" class="control-label"></label>
+                                    <input asp-for="WorkItem.DueDate" id="duedate" name="duedate" type="date" class="form-control" />
+                                    <span asp-validation-for="WorkItem.DueDate" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="WorkItem.AssignedTo" class="control-label"></label>
+                                    <select asp-for="WorkItem.AssignedTo" name="assignedto" class="form-control">
+                                        <option value="Bill Marco">Bill Marco</option>
+                                    </select>
+                                    <span asp-validation-for="WorkItem.AssignedTo" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <input type="submit" value="Create" class="btn btn-default" />
+                                </div>
+                                <input id="projectid" name="projectid" type="hidden" value="@Model.Project.ProjectId">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>

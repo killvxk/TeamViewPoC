@@ -37,6 +37,7 @@ namespace TeamViewPoC
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddScoped<IWorkItemDataService, WorkItemDataService>();
             services.AddScoped<INoteDataService, NoteDataService>();
+            services.AddScoped<IProjectDataService, ProjectDataService>();
             services.AddMvc();
         }
 
