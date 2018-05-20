@@ -20,6 +20,7 @@ namespace TeamViewPoC.Controllers
             _workItemDataService = workItemDataService;
             _projectDataService = projectDataService;
         }
+
         public IActionResult Index()
         {
             return View();

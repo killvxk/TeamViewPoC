@@ -18,5 +18,6 @@ namespace TeamViewPoC.Services
         Task<IEnumerable<WorkItem>> GetMyDueToday();
         Task MarkComplete(int id);
         Task Update(WorkItem item);
+        Task SetInactive(WorkItem item);
     }
 }

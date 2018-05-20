@@ -47,7 +47,7 @@
         <!-- Button trigger modal -->
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Add Note</button>
         <a asp-action="Edit" asp-controller="workitem" asp-route-id="@Model.WorkItem.WorkItemId" class="btn btn-primary">Edit Item</a>
-
+        <a asp-action="Transform" asp-controller="workitem" asp-route-id="@Model.WorkItem.WorkItemId" class="btn btn-danger">Change to project</a>
     </div>
 }
 
