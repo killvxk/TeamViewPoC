@@ -11,9 +11,10 @@ using TeamViewPoC.Data;
 namespace TeamViewPoC.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180511034819_projectclass2")]
+    partial class projectclass2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -233,26 +234,6 @@ namespace TeamViewPoC.Data.Migrations
                     b.ToTable("Projects");
                 });
 
-            modelBuilder.Entity("TeamViewPoC.Models.ProjectNote", b =>
-                {
-                    b.Property<int>("ProjectNoteId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("CreatedBy");
-
-                    b.Property<DateTime>("CreatedOn");
-
-                    b.Property<string>("NoteContent");
-
-                    b.Property<int?>("ProjectId");
-
-                    b.HasKey("ProjectNoteId");
-
-                    b.HasIndex("ProjectId");
-
-                    b.ToTable("ProjectNotes");
-                });
-
             modelBuilder.Entity("TeamViewPoC.Models.WorkItem", b =>
                 {
                     b.Property<int>("WorkItemId")
@@ -335,7 +316,7 @@ namespace TeamViewPoC.Data.Migrations
             modelBuilder.Entity("TeamViewPoC.Models.Note", b =>
                 {
                     b.HasOne("TeamViewPoC.Models.Project", "Project")
-                        .WithMany()
+                        .WithMany("Notes")
                         .HasForeignKey("ProjectId");
 
                     b.HasOne("TeamViewPoC.Models.WorkItem", "WorkItem")
@@ -343,16 +324,9 @@ namespace TeamViewPoC.Data.Migrations
                         .HasForeignKey("WorkItemId");
                 });
 
-            modelBuilder.Entity("TeamViewPoC.Models.ProjectNote", b =>
-                {
-                    b.HasOne("TeamViewPoC.Models.Project", "Project")
-                        .WithMany("ProjectNotes")
-                        .HasForeignKey("ProjectId");
-                });
-
             modelBuilder.Entity("TeamViewPoC.Models.WorkItem", b =>
                 {
-                    b.HasOne("TeamViewPoC.Models.Project", "Project")
+                    b.HasOne("TeamViewPoC.Models.Project")
                         .WithMany("WorkItems")
                         .HasForeignKey("ProjectId");
                 });

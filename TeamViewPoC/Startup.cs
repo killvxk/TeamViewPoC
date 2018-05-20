@@ -9,8 +9,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TeamViewPoC.Data;
-using TeamViewPoC.Models;
 using TeamViewPoC.Services;
+using TeamViewPoC.Models;
 
 namespace TeamViewPoC
 {
@@ -37,6 +37,8 @@ namespace TeamViewPoC
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddScoped<IWorkItemDataService, WorkItemDataService>();
             services.AddScoped<INoteDataService, NoteDataService>();
+            services.AddScoped<IProjectDataService, ProjectDataService>();
+            services.AddScoped<IProjectNoteDataService, ProjectNoteDataService>();
             services.AddMvc();
         }
 

@@ -5,11 +5,10 @@ using System.Threading.Tasks;
 
 namespace TeamViewPoC.Models
 {
-
-    public class WorkItem:IWorkItem
+    public class Project : IWorkItem
     {
-        public int WorkItemId { get; set; }
-        public string Title { get; set; }
+        public int ProjectId { get; set; }
+        public string Title { get; set; } 
         public string Description { get; set; }
         public DateTime CreatedOn { get; set; }
         public DateTime DueDate { get; set; }
@@ -19,11 +18,7 @@ namespace TeamViewPoC.Models
         public string AssignedTo { get; set; }
         public string CreatedBy { get; set; }
         public string Status { get; set; }
-        public virtual IEnumerable<Note>Notes { get; set; }
-        public Project Project { get; set; }
-
-
-
-
+        public virtual IEnumerable<ProjectNote> ProjectNotes { get; set; }
+        public virtual IEnumerable<WorkItem> WorkItems { get; set; }
     }
 }

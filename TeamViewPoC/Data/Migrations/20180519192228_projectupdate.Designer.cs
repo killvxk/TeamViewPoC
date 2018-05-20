@@ -11,9 +11,10 @@ using TeamViewPoC.Data;
 namespace TeamViewPoC.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180519192228_projectupdate")]
+    partial class projectupdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -246,11 +247,15 @@ namespace TeamViewPoC.Data.Migrations
 
                     b.Property<int?>("ProjectId");
 
+                    b.Property<int?>("WorkItemId");
+
                     b.HasKey("ProjectNoteId");
 
                     b.HasIndex("ProjectId");
 
-                    b.ToTable("ProjectNotes");
+                    b.HasIndex("WorkItemId");
+
+                    b.ToTable("ProjectNote");
                 });
 
             modelBuilder.Entity("TeamViewPoC.Models.WorkItem", b =>
@@ -348,6 +353,10 @@ namespace TeamViewPoC.Data.Migrations
                     b.HasOne("TeamViewPoC.Models.Project", "Project")
                         .WithMany("ProjectNotes")
                         .HasForeignKey("ProjectId");
+
+                    b.HasOne("TeamViewPoC.Models.WorkItem", "WorkItem")
+                        .WithMany()
+                        .HasForeignKey("WorkItemId");
                 });
 
             modelBuilder.Entity("TeamViewPoC.Models.WorkItem", b =>

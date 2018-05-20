@@ -12,11 +12,15 @@ namespace TeamViewPoC.Controllers
     public class WorkItemController : Controller
     {
         private readonly IWorkItemDataService _workItemDataService;
+        private readonly IProjectDataService _projectDataService;
+        private readonly IProjectNoteDataService _projectNoteDataService;
         
         //DI the workitem data service
-        public WorkItemController(IWorkItemDataService workItemDataService)
+        public WorkItemController(IWorkItemDataService workItemDataService, IProjectDataService projectDataService, IProjectNoteDataService projectNoteDataService)
         {
             _workItemDataService = workItemDataService;
+            _projectDataService = projectDataService;
+            _projectNoteDataService = projectNoteDataService;
         }
         
         //GET Index
@@ -91,8 +95,10 @@ namespace TeamViewPoC.Controllers
 
         //POST Create
         [HttpPost]
-        public async Task<IActionResult> Create(WorkItem model)
+        public async Task<IActionResult> Create(WorkItem model, int projectid)
         {
+            
+            model.Project = await _projectDataService.GetProjectById(projectid);
             model.CreatedOn = DateTime.Now;
             model.LastUpdated = DateTime.Now;
             //make the due time equal to CoB on the date (1700 hrs)
@@ -132,5 +138,46 @@ namespace TeamViewPoC.Controllers
             return RedirectToAction("Index");
         }
 
+        //Transform
+        [HttpGet]
+        public async Task<IActionResult>Transform(int id)
+        {
+            WorkItem item = await _workItemDataService.GetWorkItemByIdAsync(id);
+
+            Project project = new Project
+            {
+                Title = item.Title,
+                AssignedTo = item.AssignedTo,
+                CreatedBy = item.CreatedBy,
+                CreatedOn = item.CreatedOn,
+                Description = item.Description,
+                DueDate = item.DueDate,
+                LastUpdated = item.LastUpdated,
+                Active = true
+
+            };
+            //add the project
+            await _projectDataService.AddProject(project);
+
+            //move notes to the new project
+            foreach (var note in item.Notes)
+            {
+                ProjectNote projectNote = new ProjectNote
+                {
+                    CreatedBy = note.CreatedBy,
+                    CreatedOn = note.CreatedOn,
+                    NoteContent = note.NoteContent,
+                    Project = project
+                };
+                //add the project note
+                await _projectNoteDataService.AddProjectNoteAsync(projectNote);
+
+            }
+
+            //deactivate the old work item
+            await _workItemDataService.SetInactive(item);
+            //go to the project detail page
+            return RedirectToAction("Details", "Projects", new { id = project.ProjectId });
+        }
     }
 }

@@ -5,15 +5,12 @@ using System.Threading.Tasks;
 
 namespace TeamViewPoC.Models
 {
-    public class Note
+    public class ProjectNote
     {
-        public int NoteId { get; set; }
+        public int ProjectNoteId { get; set; }
         public string NoteContent { get; set; }
         public DateTime CreatedOn { get; set; }
-        public WorkItem WorkItem { get; set; }
         public Project Project { get; set; }
         public string CreatedBy { get; set; }
-
-
     }
 }
