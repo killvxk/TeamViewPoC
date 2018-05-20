@@ -8,11 +8,6 @@ namespace TeamViewPoC.Models
 {
     public interface INoteDataService
     {
-        /// <summary>
-        /// Adds the note asynchronous.
-        /// </summary>
-        /// <param name="note">The note object</param>
-        /// <returns></returns>
         Task AddNoteAsync(Note note);
     }
 }

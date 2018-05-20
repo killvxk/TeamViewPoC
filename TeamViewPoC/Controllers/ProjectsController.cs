@@ -6,8 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TeamViewPoC.Data;
-using TeamViewPoC.Models;
 using TeamViewPoC.Services;
+using TeamViewPoC.Models;
 using TeamViewPoC.Models.ViewModels;
 
 namespace TeamViewPoC.Controllers
@@ -16,11 +16,14 @@ namespace TeamViewPoC.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly IProjectDataService _projectDataService;
+        private readonly IProjectNoteDataService _projectNoteDataService;
 
-        public ProjectsController(ApplicationDbContext context, IProjectDataService projectDataService)
+        public ProjectsController(ApplicationDbContext context, IProjectDataService projectDataService, IProjectNoteDataService projectNoteDataService)
         {
             _context = context;
             _projectDataService = projectDataService;
+            _projectNoteDataService = projectNoteDataService;
+
         }
 
         // GET: Projects
@@ -38,7 +41,7 @@ namespace TeamViewPoC.Controllers
                 return NotFound();
             }
 
-            view.Project = await _projectDataService.GetProjectById(id);
+            view.Project = await _projectDataService.GetProjectById(id, "projectNotes");
             if (view.Project == null)
             {
                 return NotFound();
@@ -54,8 +57,6 @@ namespace TeamViewPoC.Controllers
         }
 
         // POST: Projects/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ProjectId,Title,Description,CreatedOn,DueDate,LastUpdated,Active,Complete,AssignedTo,CreatedBy,Status")] Project project)
@@ -92,8 +93,6 @@ namespace TeamViewPoC.Controllers
         }
 
         // POST: Projects/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ProjectId,Title,Description,CreatedOn,DueDate,LastUpdated,Active,Complete,AssignedTo,CreatedBy,Status")] Project project)

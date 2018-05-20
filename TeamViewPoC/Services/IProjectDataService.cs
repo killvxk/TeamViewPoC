@@ -10,5 +10,6 @@ namespace TeamViewPoC.Services
     {
         Task AddProject(Project project);
         Task<Project> GetProjectById(int? id);
+        Task<Project> GetProjectById(int? id, string option);
     }
 }

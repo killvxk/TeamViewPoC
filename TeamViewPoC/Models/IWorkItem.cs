@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace TeamViewPoC.Models
 {
-    interface IWorkItem
+    public interface IWorkItem
     {
          
          string Title { get; set; }
@@ -18,7 +18,7 @@ namespace TeamViewPoC.Models
          string AssignedTo { get; set; }
          string CreatedBy { get; set; }
          string Status { get; set; }
-         IEnumerable<Note> Notes { get; set; }
+         
 
     }
 }

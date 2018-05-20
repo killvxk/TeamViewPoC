@@ -72,6 +72,10 @@
                         <textarea asp-for="Note.NoteContent" class="form-control" rows="10" cols="75"></textarea>
                         <span asp-validation-for="Note.NoteContent" class="text-danger"></span>
                     </div>
+                    <div class="form-group">
+                        <label>Broadcast this update?</label>
+                        <input type="checkbox" />
+                    </div>                    
                     <input id="itemId" name="itemId" type="hidden" value="@Model.WorkItem.WorkItemId">
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

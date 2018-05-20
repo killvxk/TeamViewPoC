@@ -18,7 +18,7 @@ namespace TeamViewPoC.Models
         public string AssignedTo { get; set; }
         public string CreatedBy { get; set; }
         public string Status { get; set; }
-        public virtual IEnumerable<Note> Notes { get; set; }
+        public virtual IEnumerable<ProjectNote> ProjectNotes { get; set; }
         public virtual IEnumerable<WorkItem> WorkItems { get; set; }
     }
 }

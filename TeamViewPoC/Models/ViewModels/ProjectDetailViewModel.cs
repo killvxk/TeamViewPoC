@@ -10,5 +10,9 @@ namespace TeamViewPoC.Models.ViewModels
         public Project Project { get; set; }
         public Note Note { get; set; }
         public WorkItem WorkItem { get; set; }
+        public ProjectNote ProjectNote { get; set; }
+
+        public IEnumerable<ProjectNote> ProjectNotes { get; set; }
+
     }
 }
