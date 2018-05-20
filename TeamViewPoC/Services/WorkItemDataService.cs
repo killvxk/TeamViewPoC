@@ -79,7 +79,7 @@ namespace TeamViewPoC.Services
 
         public async Task<IEnumerable<WorkItem>> GetMyDueToday()
         {
-            return await _context.WorkItems.Where(x => x.DueDate.Date == DateTime.Now.Date && x.Complete == false && x.Active==true).ToArrayAsync();
+            return await _context.WorkItems.Where(x => x.DueDate.Date <= DateTime.Now.Date && x.Complete == false && x.Active==true).ToArrayAsync();
         }
 
         public async Task SetInactive(WorkItem item)
