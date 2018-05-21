@@ -1,0 +1,78 @@
+﻿body, p {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.page-header {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 300;
+
+}
+
+.group-header {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 300;
+    margin-bottom: 15px;
+}
+
+.project-tile h2 {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 300;
+}
+.project-tile {
+    width: 250px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    text-align: center;
+    margin: 7.5px 7.5px;
+}
+
+.project-tile:hover{
+    background-color: darkgrey;
+}
+
+.project-tile a, .project-tile a:link, .project-tile a:visited{
+    text-decoration: inherit;
+    color: inherit;
+
+}
+
+.project-due {
+    height: 50px;
+    padding-top:15px;
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.project-update {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 16px;
+    margin-bottom:15px;
+}
+
+.project-description{
+    font-size:16px;
+    margin-bottom: 22px;
+}
+
+.timestamp{
+    font-size:14px;
+    font-weight:100;
+    color:gray;
+}
+
+.task-table {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.task-table th{
+    font-family:inherit;
+    font-weight: 300;
+    font-size: 18px;
+    
+}
+
+.task-table tr{
+    font-family: inherit;
+    font-weight: 300;
+    font-size:18px;
+}

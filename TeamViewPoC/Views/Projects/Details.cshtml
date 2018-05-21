@@ -5,47 +5,38 @@
 }
 
 <div class="row">
-    <h2>@Model.Project.Title</h2>
+    <h1 class="page-header">@Model.Project.Title</h1>
 </div>
 
-<div class="row">
-    <ul>
-        <li>@Model.Project.CreatedOn</li>
-        <li>@Model.Project.CreatedBy</li>
-        <l1>@Model.Project.Description</l1>
-    </ul>
+<div class="row container">
+    <p class="project-description">@Model.Project.Description</p>
 </div>
 
-<div class="row">
-    <h3>progress:</h3>
-    <div class="progress" style="height: 20px;">
-        <div class="progress-bar" role="progressbar" style="width: 50%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-    </div>
-</div>
 <div class="row">
     @foreach (var item in Model.Project.ProjectNotes)
     {
-        <div class="row">
-            <h3>@item.CreatedOn</h3>
+        <div class="container project-update">
             <p>@item.NoteContent</p>
+            <p class="timestamp">@item.CreatedBy | @item.CreatedOn</p>
         </div>
     }
 </div>
+
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Add Note</button>
-<div class="row">
-    <h2>Work Items</h2>
-</div>
+<button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#exampleModal">Add Note</button>
 
 <div class="row">
-    <table class="table table-responsive table-bordered table-hover">
+    <h2 class="group-header">Tasks</h2>
+</div>
+
+<div class="row container">
+    <table class="table table-responsive table-bordered table-hover task-table">
         <thead>
             <tr>
                 <th class="col-md-2">Title</th>
                 <th class="col-md-1">Status</th>
-                <th class="col-md-6">Description</th>
-                <th class="col-md-2">Due Date</th>
-                <th class="col-md-2">Last Updated</th>
+                <th class="col-md-1">Due Date</th>
+                <th class="col-md-1">Last Updated</th>
             </tr>
         </thead>
         <tbody>
@@ -66,9 +57,7 @@
                             <span>Open</span>
                         }
                     </td>
-                    <td>
-                        @item.Description
-                    </td>
+
                     <td>
                         @item.DueDate.ToString("d")
                         @if (item.DueDate < DateTime.Now && item.Complete == false)
@@ -84,9 +73,9 @@
         </tbody>
     </table>
 </div>
-<div class="row">
+<div class="row container">
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createWorkItem">Add Work Item</button>
+    <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#createWorkItem">Add Work Item</button>
 
 </div>
 
