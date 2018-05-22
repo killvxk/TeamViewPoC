@@ -38,7 +38,7 @@ namespace TeamViewPoC.Services
         {
             if (sort == "due")
             {
-                return await _context.WorkItems.Where(x => x.AssignedTo == Constants.HardCodedSignedInUser && x.Complete == false && x.Active == true).OrderBy(x => x.DueDate).Include(x => x.Notes).ToArrayAsync();
+                return await _context.WorkItems.Where(x => x.AssignedTo == Constants.HardCodedSignedInUser && x.Complete == false && x.Active == true).OrderBy(x => x.DueDate).Include(x => x.Notes).Include(x => x.Project).ToArrayAsync();
             }
 
             return await _context.WorkItems.Where(x => x.AssignedTo == Constants.HardCodedSignedInUser && x.Complete == false && x.Active ==true).Include(x => x.Notes).ToArrayAsync();
@@ -89,6 +89,11 @@ namespace TeamViewPoC.Services
             item.LastUpdated = DateTime.Now;
 
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<WorkItem>> GetByProjectId(int id)
+        {
+            return await _context.WorkItems.Where(x => x.Project.ProjectId == id).OrderBy(x=>x.DueDate).ToArrayAsync();
         }
     }
 }

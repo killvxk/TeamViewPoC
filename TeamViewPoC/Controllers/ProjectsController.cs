@@ -17,12 +17,14 @@ namespace TeamViewPoC.Controllers
         private readonly ApplicationDbContext _context;
         private readonly IProjectDataService _projectDataService;
         private readonly IProjectNoteDataService _projectNoteDataService;
+        private readonly IWorkItemDataService _workItemDataService;
 
-        public ProjectsController(ApplicationDbContext context, IProjectDataService projectDataService, IProjectNoteDataService projectNoteDataService)
+        public ProjectsController(ApplicationDbContext context, IProjectDataService projectDataService, IProjectNoteDataService projectNoteDataService, IWorkItemDataService workItemDataService)
         {
             _context = context;
             _projectDataService = projectDataService;
             _projectNoteDataService = projectNoteDataService;
+            _workItemDataService = workItemDataService;
 
         }
 
@@ -46,7 +48,7 @@ namespace TeamViewPoC.Controllers
             {
                 return NotFound();
             }
-
+            view.Project.WorkItems = await _workItemDataService.GetByProjectId(view.Project.ProjectId);
             return View(view);
         }
 

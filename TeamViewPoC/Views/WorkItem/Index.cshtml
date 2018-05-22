@@ -14,13 +14,13 @@
 </div>
 <hr />
 <div class="row">
-    <table class="table table-responsive table-bordered table-hover">
+    <table class="table table-responsive table-bordered table-hover task-table">
         <thead>
             <tr>
-                <th class="col-md-2">Title</th>
+                <th class="col-md-2">Task</th>
+                <th class="col-md-2">Project</th>
                 <th class="col-md-6">Description</th>
                 <th class="col-md-2">Due Date</th>
-                <th class="col-md-2">Last Updated</th>
             </tr>
         </thead>
         <tbody>
@@ -32,6 +32,9 @@
                         <a asp-controller="WorkItem" asp-action="itemdetail" asp-route-id="@item.WorkItemId">@item.Title</a>
                     </td>
                     <td>
+                        <a asp-controller="Projects" asp-action="Details" asp-route-id="@item.Project?.ProjectId">@item.Project?.Title</a>
+                    </td>
+                    <td>
                         @item.Description
                     </td>
                     <td>
@@ -40,9 +43,6 @@
                         {
                             <code class="code">[OVERDUE]</code>
                         }
-                    </td>
-                    <td>
-                        @TimeZoneInfo.ConvertTime(item.LastUpdated, (TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time"))).ToString("g")
                     </td>
                 </tr>
             }

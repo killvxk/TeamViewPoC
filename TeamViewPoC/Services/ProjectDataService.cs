@@ -29,7 +29,7 @@ namespace TeamViewPoC.Services
 
         public async Task<Project> GetProjectById(int? id, string option)
         {
-            return await _context.Projects.Include(x => x.WorkItems).Include(x=>x.ProjectNotes).FirstOrDefaultAsync(x => x.ProjectId == id);
+            return await _context.Projects.Include(x=>x.ProjectNotes).FirstOrDefaultAsync(x => x.ProjectId == id);
         }
     }
 }

@@ -1,17 +1,17 @@
 ﻿@model TeamViewPoC.Models.ViewModels.TodayViewModel
 <div class="row">
-    <h1>@DateTime.Now.ToString("D")</h1>
+    <h1 class="page-header">@DateTime.Now.ToString("D")</h1>
 </div>
 
 
-<div class="row">
+<div class="row container">
     <h2>Due Today</h2>
 </div>
-<div class="row">
+<div class="row container">
     <p>You have <strong>@Model.WorkItemsToday.Count().ToString()</strong> item(s) due or overdue today.</p>
 </div>
-<div class="row">
-    <table class="table table-responsive table-bordered table-hover">
+<div class="row container">
+    <table class="table table-responsive table-bordered table-hover task-table">
         <thead>
             <tr>
                 <th class="col-md-2">Title</th>
@@ -43,14 +43,14 @@
     </table>
 
 </div>
-<div class="row">
+<div class="row container">
     <h2>Due Soon</h2>
 </div>
-<div class="row">
+<div class="row container">
     <p>You have <strong>@Model.WorkItemsSoon.Count().ToString()</strong> item(s) due in the next 48 hrs.</p> </p>
 </div>
-<div class="row">
-    <table class="table table-responsive table-bordered table-hover">
+<div class="row container">
+    <table class="table table-responsive table-bordered table-hover task-table">
         <thead>
             <tr>
                 <th class="col-md-2">Title</th>

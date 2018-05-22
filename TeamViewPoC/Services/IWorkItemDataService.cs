@@ -19,5 +19,6 @@ namespace TeamViewPoC.Services
         Task MarkComplete(int id);
         Task Update(WorkItem item);
         Task SetInactive(WorkItem item);
+        Task<IEnumerable<WorkItem>> GetByProjectId(int id);
     }
 }
