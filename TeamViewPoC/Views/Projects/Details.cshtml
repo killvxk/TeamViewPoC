@@ -9,32 +9,47 @@
     <a asp-action="index">Back to Projects</a>
 </div>
 <div class="row">
-    <h1 class="page-header">@Model.Project.Title</h1>
+    <h1 class="page-header"><i class="fas fa-cubes fa-1.5x"></i> @Model.Project.Title</h1>
 </div>
 
-<div class="row container">
-    <p class="project-description">@Model.Project.Description</p>
-</div>
+<div class="project-container">
+    <div class="row container">
+        <p class="project-details"><i class="fas fa-calendar"></i> Due: @Model.Project.DueDate.ToString("d")</p>
+    </div>
 
-<div class="row">
-    @foreach (var item in Model.Project.ProjectNotes)
-    {
-        <div class="container project-update">
-            <p>@item.NoteContent</p>
-            <p class="timestamp">@item.CreatedBy | @item.CreatedOn</p>
+    <div class="row container">
+        <div class="container">
+            <p class="project-description">@Model.Project.Description</p>
         </div>
-    }
+    </div>
+
+    <div class="row container">
+        @foreach (var item in Model.Project.ProjectNotes)
+        {
+            <div class="container">
+                <div class="container project-update">
+                    <p>@item.NoteContent</p>
+                    <p class="timestamp">@item.CreatedBy | @item.CreatedOn</p>
+                </div>
+            </div>
+        }
+    </div>
+
+    <!-- Button trigger modal -->
+    <div class="row container">
+        <div class="container">
+            <button type="button" class="btn" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-sticky-note fa-1.5x"></i> Add Note</button>
+        </div>
+    </div>
 </div>
 
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#exampleModal">Add Note</button>
-
 <div class="row">
-    <h2 class="group-header">Tasks</h2>
+    <h2 class="group-header"><i class="fas fa-clipboard-list"></i> Tasks</h2>
 </div>
 
 <div class="row container">
-    <table class="table table-responsive table-bordered table-hover task-table">
+    <div class="container">
+        <table class="table table-responsive table-bordered table-hover task-table">
         <thead>
             <tr>
                 <th class="col-md-2">Title</th>
@@ -54,11 +69,11 @@
                     <td>
                         @if (item.Complete == true)
                         {
-                            <span>Complete</span>
+                            <span class="complete"><i class="fas fa-check-circle"></i> Complete</span>
                         }
                         else
                         {
-                            <span>Open</span>
+                            <i class="far fa-circle"></i><span> Open</span>
                         }
                     </td>
 
@@ -76,10 +91,14 @@
             }
         </tbody>
     </table>
+    </div>
 </div>
+
 <div class="row container">
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#createWorkItem">Add Work Item</button>
+    <div class="container">
+        <!-- Button trigger modal -->
+        <button type="button" class="btn" data-toggle="modal" data-target="#createWorkItem"><i class="fas fa-clipboard"></i> Add Work Item</button>
+    </div>
 
 </div>
 

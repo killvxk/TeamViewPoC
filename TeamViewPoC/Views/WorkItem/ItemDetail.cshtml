@@ -9,45 +9,40 @@
 </div>
 <div class="row">
 
-    <h1>@Model.WorkItem.Title<small> @{if (Model.WorkItem.Project != null){@Model.WorkItem.Project.Title.ToString()} }</small></h1>
+    <h1 class="page-header"><i class="fas fa-clipboard-list"></i> @Model.WorkItem.Title <span class="header-edit"><a <a asp-action="Edit" asp-controller="workitem" asp-route-id="@Model.WorkItem.WorkItemId"><i class="fas fa-edit"></i></a></span><small> @{if (Model.WorkItem.Project != null){@Model.WorkItem.Project.Title.ToString()} }</small></h1>
 
-    <p>Due: @Model.WorkItem.DueDate.ToShortDateString()</p>
+    <p><i class="fas fa-calendar"></i> Due: @Model.WorkItem.DueDate.ToShortDateString()</p>
 
     @if (Model.WorkItem.Complete == true)
     {
         <h3>This item is closed</h3>
     }
+    <div class="container">
+        <p>@Model.WorkItem.Description</p>
+    </div>
 
-    <p>@Model.WorkItem.Description</p>
-    <table class="table table-bordered table-hover">
-        <thead>
-            <tr>
-                <th class="col-md-8">Note</th>
-                <th class="col-md-2">Created By</th>
-                <th class="col-md-2">Created On</th>
-            </tr>
-        </thead>
-        <tbody>
             @foreach (var note in Model.WorkItem.Notes)
             {
-                <tr>
-                    <td>@note.NoteContent</td>
-                    <td>@note.CreatedBy</td>
-                    <td>@TimeZoneInfo.ConvertTime(note.CreatedOn, (TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time"))).ToString("g")</td>
-                </tr>
+                <div class="container">
+                    <div class="container project-update">
+                        <p>@note.NoteContent</p>
+                        <p class="timestamp">@note.CreatedBy @TimeZoneInfo.ConvertTime(note.CreatedOn, (TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time"))).ToString("g") </p>
+                    </div>
+                </div>
             }
-        </tbody>
-    </table>
-</div>
+
 @if (Model.WorkItem.Complete == false)
 {
-    <div class="row">
-        <a asp-action="markcomplete/@Model.WorkItem.WorkItemId" asp-controller="WorkItem" class="btn btn-primary pull-right">Mark Complete</a>
+    <div class="row container">
+        <div class="container">
+            <a asp-action="markcomplete/@Model.WorkItem.WorkItemId" asp-controller="WorkItem" class="btn btn-default pull-right"><i class="fas fa-check-circle"></i> Mark Complete</a>
+            
+            <!-- Button trigger modal -->
+            <button type="button" class="btn" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-sticky-note fa-1.5x"></i> Add Note</button>
+            
+            <a asp-action="Transform" asp-controller="workitem" asp-route-id="@Model.WorkItem.WorkItemId" class="btn btn-info"><i class="fas fa-cubes"></i> Change to project</a>
 
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Add Note</button>
-        <a asp-action="Edit" asp-controller="workitem" asp-route-id="@Model.WorkItem.WorkItemId" class="btn btn-primary">Edit Item</a>
-        <a asp-action="Transform" asp-controller="workitem" asp-route-id="@Model.WorkItem.WorkItemId" class="btn btn-danger">Change to project</a>
+        </div>
     </div>
 }
 

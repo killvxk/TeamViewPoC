@@ -1,5 +1,6 @@
 ﻿body, p {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 16px;
 }
 .page-header {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -11,6 +12,7 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-weight: 300;
     margin-bottom: 15px;
+
 }
 
 .project-tile h2 {
@@ -46,7 +48,9 @@
 .project-update {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 16px;
-    margin-bottom:15px;
+    padding: 5px 5px;
+    margin-bottom: 15px;
+    background-color: #f2f3f4;
 }
 
 .project-description{
@@ -68,7 +72,6 @@
     font-family:inherit;
     font-weight: 300;
     font-size: 18px;
-    
 }
 
 .task-table tr{
@@ -76,3 +79,22 @@
     font-weight: 300;
     font-size:18px;
 }
+
+.project-details{
+    font-size: 16px;
+}
+
+.project-container {
+    margin-bottom: 40px;
+}
+
+.header-edit{
+    font-size:18px;
+    vertical-align: text-top;
+}
+
+.complete{
+    color:green;
+    font-weight:400;
+}
+
