@@ -20,5 +20,6 @@ namespace TeamViewPoC.Services
         Task Update(WorkItem item);
         Task SetInactive(WorkItem item);
         Task<IEnumerable<WorkItem>> GetByProjectId(int id);
+        Task<IEnumerable<WorkItem>> SearchMyWorkItems(string searchstring);
     }
 }

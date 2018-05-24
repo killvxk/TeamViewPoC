@@ -1,0 +1,51 @@
+﻿@model IEnumerable<TeamViewPoC.Models.WorkItem>
+
+@{
+    ViewData["Title"] = "Search Results";
+}
+
+<h1 class="page-header">Search Results</h1>
+<div class="row">
+    <div class="container">
+        <p>Search results for the term:<em>"@ViewBag.SearchTerm"</em>  </p>
+    </div>
+</div>
+
+
+<div class="row container">
+    <table class="table table-responsive table-bordered table-hover task-table">
+        <thead>
+            <tr>
+                <th class="col-md-2">Task</th>
+                <th class="col-md-2">Project</th>
+                <th class="col-md-6">Description</th>
+                <th class="col-md-2">Due Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+
+                <tr>
+                    <td>
+                        <a asp-controller="WorkItem" asp-action="itemdetail" asp-route-id="@item.WorkItemId">@item.Title</a>
+                    </td>
+                    <td>
+                        <a asp-controller="Projects" asp-action="Details" asp-route-id="@item.Project?.ProjectId">@item.Project?.Title</a>
+                    </td>
+                    <td>
+                        @item.Description
+                    </td>
+                    <td>
+                        @item.DueDate.ToString("d")
+                        @if (item.DueDate < DateTime.Now)
+                        {
+                            <code class="code">[OVERDUE]</code>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>

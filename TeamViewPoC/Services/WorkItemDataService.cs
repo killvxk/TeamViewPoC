@@ -95,5 +95,17 @@ namespace TeamViewPoC.Services
         {
             return await _context.WorkItems.Where(x => x.Project.ProjectId == id).OrderBy(x=>x.DueDate).ToArrayAsync();
         }
+
+        public async Task<IEnumerable<WorkItem>> SearchMyWorkItems(string searchstring)
+        {
+            return await _context.WorkItems.Where(x => x.AssignedTo == Constants.HardCodedSignedInUser
+            && x.Complete == false
+            && x.Active == true
+            && (x.Title.Contains(searchstring) 
+                || x.Description.Contains(searchstring) 
+                || x.Project.Title.Contains(searchstring)
+                || x.Project.Description.Contains(searchstring))
+            ).Include(x=>x.Project).ToArrayAsync();
+        }
     }
 }

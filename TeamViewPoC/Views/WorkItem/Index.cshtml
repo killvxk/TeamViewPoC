@@ -5,12 +5,18 @@
 }
 
 <div class="row">
-    <h1 class="">My Open Work Items</h1>
+    <h1 class="page-header">My Open Work Items</h1>
 </div>
-
-
-<div class="row">
+<div class="row container">
     <a class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">[+] Add Item</a>
+</div>
+<div class="row container">
+    <form asp-action="searchresult" class="form-inline">
+        <div class="form-group pull-right">
+            <label class="inline-label"><i class="fas fa-search"></i></label>
+            <input type="text" name="searchstring" />
+        </div>
+    </form>
 </div>
 <hr />
 <div class="row">

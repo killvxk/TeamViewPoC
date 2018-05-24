@@ -93,6 +93,14 @@ namespace TeamViewPoC.Controllers
             return View(data);
         }
 
+        //GET search results
+        public async Task<IActionResult> SearchResult(string searchstring)
+        {
+            var data = await _workItemDataService.SearchMyWorkItems(searchstring);
+            ViewBag.SearchTerm = searchstring;
+            return View(data);
+        }
+        
         //POST Create
         [HttpPost]
         public async Task<IActionResult> Create(WorkItem model, int projectid)
