@@ -9,7 +9,9 @@ namespace TeamViewPoC.Services
     public interface IProjectDataService
     {
         Task AddProject(Project project);
+        Task MarkComplete(int id);
         Task<Project> GetProjectById(int? id);
         Task<Project> GetProjectById(int? id, string option);
+        Task<IEnumerable<Project>> GetMyOpenProjects();
     }
 }

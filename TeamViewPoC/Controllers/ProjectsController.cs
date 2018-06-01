@@ -31,7 +31,8 @@ namespace TeamViewPoC.Controllers
         // GET: Projects
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Projects.ToListAsync());
+            var data = await _projectDataService.GetMyOpenProjects();
+            return View(data);
         }
 
         // GET: Projects/Details/5
@@ -92,6 +93,13 @@ namespace TeamViewPoC.Controllers
                 return NotFound();
             }
             return View(project);
+        }
+
+        //GET MarkComplete
+        public async Task<IActionResult> MarkComplete(int id)
+        {
+            await _projectDataService.MarkComplete(id);
+            return RedirectToAction("Index");
         }
 
         // POST: Projects/Edit/5
