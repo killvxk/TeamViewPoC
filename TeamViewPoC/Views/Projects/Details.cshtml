@@ -9,7 +9,7 @@
     <a asp-action="index">Back to Projects</a>
 </div>
 <div class="row">
-    <h1 class="page-header"><i class="fas fa-cubes fa-1.5x"></i> @Model.Project.Title</h1>
+    <h1 class="page-header"><i class="fas fa-cubes fa-1.5x"></i> @Model.Project.Title <span class="header-edit"><a <a asp-action="Edit" asp-controller="projects" asp-route-id="@Model.Project.ProjectId"><i class="fas fa-edit"></i></a></span></h1>
 </div>
 
 <div class="project-container">
