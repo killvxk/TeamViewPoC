@@ -6,16 +6,21 @@
 
 <h1 class="page-header">Open Projects</h1>
 
+<div class="row container">
+    <a class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">[+] Add Project</a>
+</div>
+<br />
 <div class="row">
     @foreach (var project in Model)
     {
-
-            <div class="col-md-3 project-tile">
-                <a asp-action="Details" asp-route-id="@project.ProjectId">
-                    <h2>@project.Title</h2>
-                    <p>@project.Description</p>
-                    <p class="project-due">Due: @project.DueDate.ToString("d")</p>
-                </a>
+            <div class="col-md-6">
+                <div class="well well-lg project-tile">
+                    <a asp-action="Details" asp-route-id="@project.ProjectId">
+                        <h2>@project.Title</h2>
+                        
+                        <p class="project-due">Due: @project.DueDate.ToString("d")</p>
+                    </a>
+                </div>
             </div>
     }
 </div>

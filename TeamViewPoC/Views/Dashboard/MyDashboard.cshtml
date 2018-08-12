@@ -1,0 +1,40 @@
+﻿@model TeamViewPoC.Models.ViewModels.MyDashboardViewModel
+@{
+    ViewData["Title"] = "MyDashboard";
+}
+
+<h2>MyDashboard</h2>
+
+<div class="container row">
+    <div class="col-md-4">
+        <h2>Open Projects</h2>
+        <p><a asp-area="" asp-controller="Projects" asp-action="Index">@Model.MyProjects.Count().ToString()</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Earliest Due</h2>
+        <p>@Model.MyProjects.Min(x => x.DueDate)</p>
+    </div>
+    <div class="col-md-4">
+        <h2>Latest Due</h2>
+        <p>@Model.MyProjects.Max(x => x.DueDate)</p>
+    </div>
+</div>
+
+<div class="container row">
+    <div class="col-md-4">
+        <h2>Open Tasks</h2>
+        <p><a asp-area="" asp-controller="WorkItem" asp-action="Index">@Model.MyWorkItems.Count().ToString()</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Earliest Due</h2>
+        <p>@Model.MyWorkItems.Min(x=> x.DueDate)</p>
+    </div>
+    <div class="col-md-4">
+        <h2>Latest Due</h2>
+        <p>@Model.MyWorkItems.Max(x => x.DueDate)</p>
+    </div>
+</div>
+
+<div class="container row">
+    <h2>Calendar</h2>
+</div>

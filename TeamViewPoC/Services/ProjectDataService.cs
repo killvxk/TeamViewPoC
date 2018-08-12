@@ -25,7 +25,7 @@ namespace TeamViewPoC.Services
 
         public async Task<IEnumerable<Project>> GetMyOpenProjects()
         {
-            return await _context.Projects.Where(x => x.Complete == false && x.Active == true && x.CreatedBy == Constants.HardCodedSignedInUser).ToArrayAsync();
+            return await _context.Projects.Where(x => x.Complete == false && x.Active == true && x.CreatedBy == Constants.HardCodedSignedInUser).OrderBy(x=>x.DueDate).ToArrayAsync();
         }
 
         public async Task<Project> GetProjectById(int? id)
